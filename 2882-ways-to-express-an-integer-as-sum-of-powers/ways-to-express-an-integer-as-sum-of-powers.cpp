@@ -32,9 +32,27 @@ public:
         while(pow(size,x)<=n){
             size++;    
         }
-        vector<vector<int>> dp(size+1,vector<int> (n+1,-1));
+        vector<vector<int>> dp(size+1,vector<int> (n+1,0));
 
-        return funct(n,x,size,1,dp);
+        // return funct(n,x,size,1,dp);
+
+        for(int i=0;i<=size;i++){
+            dp[i][0] = 1;
+        }
+
+
+        for(int i=size-1;i>0;i--){
+            for(int j=1;j<=n;j++){
+                int take = 0;
+                int nottake = dp[i+1][j];
+                if(j-pow(i,x)>=0){
+                    take = dp[i+1][j-pow(i,x)];
+                }
+
+                dp[i][j] = (take + nottake)%mod;
+            }
+        }
+        return dp[1][n];
     }
 };
 
