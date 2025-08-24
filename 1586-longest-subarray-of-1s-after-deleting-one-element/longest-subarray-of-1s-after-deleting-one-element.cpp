@@ -1,47 +1,40 @@
 class Solution {
 public:
     int longestSubarray(vector<int>& nums) {
+        // define required variable here ;
         int size = nums.size();
         int ans = 0;
-        vector<int> perfix(size, 0);
-        vector<int> suffix(size, 0);
-        int sum;
+        int ptr1 = 0;
+        int ptr2 = 0;
+        int lastlen = 0;
+        int currentlen = 0;
 
-// calculate perfix sum of the given array and store;
-        sum = 0;
-        for(int i=0;i<size;i++){
-            sum+=nums[i];
-            if(nums[i] == 0){
-                perfix[i] = sum;
-                sum = 0;
+// tracking the answer according to the given condition of question ;
+        while(ptr2<size){
+            if(nums[ptr2] == 1){
+                ptr2++;
             }
-        }
-        ans = sum;
-
-// calculate suffix sum of array and store it ;
-        sum = 0;
-        for(int i=size-1;i>=0;i--){
-            sum+=nums[i];
-            if(nums[i] == 0){
-                suffix[i] = sum;
-                sum = 0;
+            else{
+                currentlen = ptr2 - ptr1;
+                ans = max(ans, lastlen+currentlen);
+                lastlen = currentlen;
+                ptr2++;
+                ptr1 = ptr2;
             }
         }
 
-// write logic here for update answer according to the given condition ;
-        ans = max(ans,suffix[0]);
-        for(int i=0;i<size-1;i++){
-            if(nums[i] == 0){
-                ans = max(ans, perfix[i] + suffix[i]);
-            }
+// here is write last case of subarray ;
+        if(nums[size-1] != 0){
+            currentlen = ptr2 - ptr1;
+            ans = max(ans, lastlen+currentlen);
         }
 
-        // one element should delete 
+// one element from the nums should delete ;
         if(ans == size){
             return ans-1;
         }
-
-        // return the answer here ;
-        return ans;
+        else{
+            return ans;
+        }
     }
 };
