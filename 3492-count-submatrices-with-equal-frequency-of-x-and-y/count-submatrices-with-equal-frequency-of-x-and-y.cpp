@@ -3,7 +3,7 @@ public:
     int numberOfSubmatrices(vector<vector<char>>& grid) {
         int m = grid.size();
         int n = grid[0].size();
-        vector<vector<pair<int,int>>> matrix(m,vector<pair<int,int>> (n,{0,0}));
+        vector<pair<int,int>> matrix(n,{0,0});
         int x = 0,y=0;
         int ans = 0;
         for(int i=0;i<n;i++){
@@ -13,8 +13,8 @@ public:
             else if(grid[0][i] == 'Y'){
                 y++;
             }
-            matrix[0][i] = {x,y};
-            if((matrix[0][i].first == matrix[0][i].second) && matrix[0][i].first){
+            matrix[i] = {x,y};
+            if((matrix[i].first == matrix[i].second) && matrix[i].first){
                 ans++;
             }
         }
@@ -28,10 +28,10 @@ public:
                 else if(grid[i][j] == 'Y'){
                     y++;
                 }
-                int newx = matrix[i-1][j].first;
-                int newy = matrix[i-1][j].second;
-                matrix[i][j] = {x+newx, y+newy};
-                if((matrix[i][j].first == matrix[i][j].second) && matrix[i][j].first){
+                int newx = matrix[j].first;
+                int newy = matrix[j].second;
+                matrix[j] = {x+newx, y+newy};
+                if((matrix[j].first == matrix[j].second) && matrix[j].first){
                 ans++;
             }
             }
