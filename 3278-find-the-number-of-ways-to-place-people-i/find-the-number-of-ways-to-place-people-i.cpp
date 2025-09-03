@@ -4,8 +4,8 @@ public:
         int size = points.size();
         sort(points.begin(), points.end(), [](const vector<int>& a, const vector<int>& b) {
     if (a[0] == b[0]) 
-        return a[1] > b[1];  // descending order of second term
-    return a[0] < b[0];      // ascending order of first term
+        return a[1] > b[1];
+    return a[0] < b[0];
 });
 
         int ct = 0;
