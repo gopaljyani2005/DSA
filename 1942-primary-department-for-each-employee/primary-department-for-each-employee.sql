@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+select result.employee_id, result.department_id from (select E.employee_id, E.department_id, E.primary_flag, F.frequency from Employee as E left join (select Employee.employee_id , count(*) as frequency from Employee group by Employee.employee_id) as F on E.employee_id = F.employee_id) as result where (result.frequency=1)or (result.frequency !=1 and result.primary_flag  = 'Y');
