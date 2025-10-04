@@ -1,8 +1,8 @@
-select 
-    distinct first_value(q.person_name) over(order by q.weightsum desc) as person_name
-    from (SELECT *,
-        SUM(queue.weight) OVER (
-            ORDER BY queue.turn
-            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-        ) AS weightsum
-    FROM Queue AS queue) as q where q.weightsum <= 1000;
+
+select q1.person_name 
+        from Queue as q1 
+        inner join Queue as q2 on q1.turn >= q2.turn 
+        group by q1.turn 
+        having sum(q2.weight)<=1000 
+        order by q1.turn desc 
+        limit 1;
