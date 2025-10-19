@@ -1,6 +1,6 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        mymap = {}
+        mymap = dict()
         size = len(nums)
         for i in range(0,size):
             if target-nums[i] in mymap:
